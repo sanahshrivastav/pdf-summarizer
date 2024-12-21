@@ -41,8 +41,9 @@ python app.py
 - Select a summarization model from the dropdown menu.
 - View the generated summary in the text box.
 
-**Code Wlkthrough**
+**Code Walkthrough**
 *Imports*
+
 import gradio as gr
 from langchain.text_splitter import CharacterTextSplitter
 from PyPDF2 import PdfReader
@@ -56,12 +57,14 @@ import torch
 - torch: Deep learning library used to detect GPU availability.
 
   *Device Set-Up*
+  
   device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
   print(f'Using device: {device}')
   - Detects if a CUDA-enabled GPU is available and configures the device accordingly.
 
 
   *Summarization Function*
+  
   def summarize_pdf(pdf_file_path, model_name):
     summarizer = pipeline('summarization', model=model_name, min_length=100, max_length=200, device=0 if torch.cuda.is_available() else -1)
     loader = PdfReader(pdf_file_path.name)
@@ -70,10 +73,12 @@ import torch
         text += page.extract_text()
     summary = summarizer(text)
     return summary[0]['summary_text']
+  
 - Extracts text from the uploaded PDF.
 - Uses the specified pre-trained model to generate a summary.
 
 *Gradio Interface*
+
 def main():
     input_pdf_path = gr.File(label="Upload PDF")
     select_model = gr.Dropdown(
@@ -94,12 +99,14 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
 - Creates an interactive Gradio Interface
 - Accepts a PDF file and model selection as input and returns the summary
 
 
 **Models**
 Supported Pre-Trained Models
+
 ~ allenai/led-large-16384-arxiv: Optimized for summarizing large documents like research papers.
 ~ philschmid/bart-large-cnn-samsum: Fine-tuned for dialogue and conversational text summarization.
 ~ csebuetnlp/mT5_multilingual_XLSum: A multilingual model for summarizing text in various languages.
