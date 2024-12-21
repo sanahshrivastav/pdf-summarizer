@@ -18,6 +18,6 @@ Before running this project, ensure you have the following installed:
 3. CUDA-enabled GPU (optional)
 
 *Installation*
-1. Clone the repository:
+1. Clone the repository: gh repo clone sanahshrivastav/pdf-summarizer
 2. Install the required dependencies:
    !pip install gradio langchain transformers PyPDF2 torch
